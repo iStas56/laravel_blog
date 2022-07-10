@@ -12,15 +12,20 @@ class PostService
     {
         try {
             Db::beginTransaction();
-            $tagIds = $data['tag_ids'];
-            unset($data['tag_ids']);
+
+            if (isset($data['tag_ids'])) {
+                $tagIds = $data['tag_ids'];
+                unset($data['tag_ids']);
+            }
 
             $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
             $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
 
             $post = Post::firstOrCreate($data);
 
-            $post->tags()->attach($tagIds);
+            if (isset($tagIds))
+                $post->tags()->attach($tagIds);
+
             DB::commit();
         } catch (\Exception $exception) {
             Db::rollBack();
@@ -33,8 +38,11 @@ class PostService
         try {
 
             Db::beginTransaction();
-            $tagIds = $data['tag_ids'];
-            unset($data['tag_ids']);
+
+            if (isset($data['tag_ids'])) {
+                $tagIds = $data['tag_ids'];
+                unset($data['tag_ids']);
+            }
 
             if (isset($data['preview_image']))
                 $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
@@ -43,7 +51,10 @@ class PostService
                 $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
 
             $post->update($data);
-            $post->tags()->sync($tagIds);
+
+            if (isset($tagIds))
+                $post->tags()->attach($tagIds);
+
             DB::commit();
 
         } catch (\Exception $exception) {
