@@ -41,6 +41,20 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group w-50">
+                            <label for="">Выберите роль</label>
+                            <select class="form-control" name="role">
+                                @foreach($roles as $key => $role)
+                                    <option
+                                        {{ $key == $user->role ? ' selected' : '' }}
+                                        value="{{ $key }}">{{ $role }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('role')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         <input type="submit" class="btn btn-primary" value="Обновить"></input>
                     </form>
                 </div>
