@@ -31,14 +31,14 @@
                         <div class="form-group w-25">
                             <input type="text" value="{{ old('title') }}" name="title" class="form-control" placeholder="Введите название">
                             @error('title')
-                                <div class="text-danger">Обязательно для заполнения</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <textarea id="summernote" name="content">{{ old('content') }}</textarea>
                             @error('content')
-                            <div class="text-danger">Обязательно для заполнения</div>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group w-50">
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             @error('preview_image')
-                            <div class="text-danger">Обязательно для заполнения</div>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group w-50">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         @error('main_image')
-                        <div class="text-danger">Обязательно для заполнения</div>
+                        <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group w-50">
                             <label for="">Выберите категорию</label>
@@ -83,7 +83,7 @@
                             </select>
                         </div>
                         @error('category_id')
-                        <div class="text-danger">Обязательно для заполнения</div>
+                        <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group w-50">
                             <label>Добавить теги</label>
@@ -96,6 +96,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('tag_ids')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Добавить"></input>
                         </div>
