@@ -60,4 +60,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new SendVerifyWithQueueNotification());
     }
+
+    /*
+     * Возвратит посты пользователя из модели Post(таблица posts), c помощью отношения многим ко многим в таблице post_user_likes('user_id' -> 'post_id')
+     */
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user_likes', 'user_id', 'post_id');
+    }
 }
